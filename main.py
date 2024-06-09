@@ -65,6 +65,20 @@ def find_random_password():
     return random_password
 
 def store_login_details():
+    existing_logins = read_logins()
+    new_logins = get_logins()
+    existing_logins.append(new_logins)
+
+    with open('login_details.json', 'w') as file:
+        # indent = 4 makes the json file formatting easier to read
+        json.dump(existing_logins, file, indent = 4)
+
+def read_logins():
+    with open('login_details.json', 'r') as file:
+        login_details = json.load(file)
+        return login_details
+
+def get_logins():
     login_details = {}
 
     while True:
@@ -82,9 +96,7 @@ def store_login_details():
 
         login_details[website][username] = password
 
-    with open('login_details.json', 'w') as file:
-        # indent = 4 makes the json file formatting easier to read
-        json.dump(login_details, file, indent = 4)
+    return login_details
 
 if __name__ == "__main__":
     main()
