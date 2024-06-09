@@ -82,7 +82,9 @@ def store_login_details():
 
         login_details[website][username] = password
 
-    print(login_details)
+    with open('login_details.json', 'w') as file:
+        # indent = 4 makes the json file formatting easier to read
+        json.dump(login_details, file, indent = 4)
 
 if __name__ == "__main__":
     main()
