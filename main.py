@@ -2,11 +2,31 @@ import random
 import json
 
 def main():
-    generate_login_details()
-    store_login_details()
-    recall_login_details()
+    print("---")
+    print("Personal Password Manager")
+    print("---")
+    print("Enter 1 to generate random login details")
+    print("Enter 2 to store your login details")
+    print("Enter 3 to recall stored your login details")
+    
+    user_choice = int(input("Enter your choice: "))
+
+    if user_choice == 1:
+        generate_login_details()
+    elif user_choice == 2:
+        store_login_details()
+    elif user_choice == 3:
+        recall_login_details()
+    else:
+        print("Invalid input.")
+
+# GENERATE LOGIN DETAILS
 
 def generate_login_details():
+    """
+    - this function generates random username and password by calling relevant functions
+    - and prints them for the user
+    """
     random_username = find_random_username()
     random_password = find_random_password()
 
@@ -18,6 +38,11 @@ def generate_login_details():
     print("")
 
 def find_random_username():
+    """
+    - this funtion generates random username by combining a random adjective and a random noun
+        - adjectives and nouns come from local text files 
+    - and returns the random username
+    """
     with open('adjectives.txt', 'r') as file:
         adjectives = file.readlines()
         adjectives = [adjective.strip() for adjective in adjectives]
@@ -36,6 +61,10 @@ def find_random_username():
     return random_username
 
 def find_random_password():
+    """
+    - this function generates random password by combining uppercase and lowecase letters, numbers, and special characters
+    - and returns the password
+    """
     letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
     numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
     special_characters = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', '=', '+', '[', ']', '{', '}', ';', ':', "'", '"', ',', '<', '>', '.', '?', '/', '|', '`', '~']
@@ -65,7 +94,15 @@ def find_random_password():
     
     return random_password
 
+# STORE LOGIN DETAILS
+
 def store_login_details():
+    """
+    - this function calls relevant functions to store user login details as nested dictionaries in a JSON file
+        - gets user login details
+        - appends user login details to the existing login details, if any
+        - stores total login details in the JSON file again
+    """
     existing_logins = read_logins()
     new_logins = get_logins()
     existing_logins.append(new_logins)
@@ -99,7 +136,12 @@ def get_logins():
 
     return login_details
 
+# RECALL LOGIN DETAILS
+
 def recall_login_details():
+    """
+    - this function recalls the stored user login details from the JSON file
+    """
     found_website = False
     found_username = False
 
@@ -123,7 +165,6 @@ def recall_login_details():
 
     if (found_website == False) or (found_username == False):
         print("No such login detail found.")
-
 
 if __name__ == "__main__":
     main()
