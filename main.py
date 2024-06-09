@@ -1,8 +1,20 @@
 import random
+import json
 
 def main():
-    find_random_username()
-    find_random_password()
+    generate_login_details()
+    store_login_details()
+
+def generate_login_details():
+    random_username = find_random_username()
+    random_password = find_random_password()
+
+    print("---")
+    print("Generate Login Details")
+    print("---")
+    print("Username: ", random_username)
+    print("Password: ", random_password)
+    print("")
 
 def find_random_username():
     with open('adjectives.txt', 'r') as file:
@@ -20,7 +32,7 @@ def find_random_username():
     noun_index = random.randint(0, len(nouns) - 1)
 
     random_username = adjectives[adjective_index] + "_" + nouns[noun_index]
-    print(random_username)
+    return random_username
 
 def find_random_password():
     letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
@@ -50,8 +62,27 @@ def find_random_password():
 
         random_password += password_char
     
-    print(random_password)
+    return random_password
 
+def store_login_details():
+    login_details = {}
+
+    while True:
+        print("---")
+        print("Store Login Details")
+        print("---")
+        website = input("Enter website name (or 'done' to finish): ")
+        if website.lower() == "done":
+            break
+        username = input("Enter email/username: ")
+        password = input("Enter password: ")
+
+        if website not in login_details:
+            login_details[website] = {}
+
+        login_details[website][username] = password
+
+    print(login_details)
 
 if __name__ == "__main__":
     main()
