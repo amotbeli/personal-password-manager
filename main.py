@@ -4,6 +4,7 @@ import json
 def main():
     generate_login_details()
     store_login_details()
+    recall_login_details()
 
 def generate_login_details():
     random_username = find_random_username()
@@ -97,6 +98,32 @@ def get_logins():
         login_details[website][username] = password
 
     return login_details
+
+def recall_login_details():
+    found_website = False
+    found_username = False
+
+    with open('login_details.json', 'r') as file:
+        existing_logins = json.load(file)
+
+    print("---")
+    print("Recall Login Details")
+    print("---")
+    website = input("Enter website name: ")
+
+    for i in range(len(existing_logins)):
+        if website in existing_logins[i]:
+            found_website = True
+            username = input("Enter username/email: ")
+            if username in existing_logins[i][website]:
+                found_username = True
+                password = existing_logins[i][website][username]
+                print("Password:", password)
+                break
+
+    if (found_website == False) or (found_username == False):
+        print("No such login detail found.")
+
 
 if __name__ == "__main__":
     main()
