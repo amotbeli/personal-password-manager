@@ -5,17 +5,17 @@ def main():
     print("---")
     print("Personal Password Manager")
     print("---")
-    print("Enter 1 to generate random login details")
-    print("Enter 2 to store your login details")
-    print("Enter 3 to recall stored your login details")
-    
-    user_choice = int(input("Enter your choice: "))
+    print("Enter 1 to generate random login details.")
+    print("Enter 2 to store your login details.")
+    print("Enter 3 to recall your login details.")
+    print("")
+    user_choice = input("Enter your choice: ")
 
-    if user_choice == 1:
+    if user_choice == "1":
         generate_login_details()
-    elif user_choice == 2:
+    elif user_choice == "2":
         store_login_details()
-    elif user_choice == 3:
+    elif user_choice == "3":
         recall_login_details()
     else:
         print("Invalid input.")
